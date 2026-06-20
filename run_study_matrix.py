@@ -9,7 +9,7 @@ import sys
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["smoke", "main", "ablations", "noise", "all"], default="smoke")
+    parser.add_argument("--mode", choices=["smoke", "main", "ablations", "noise", "defense", "all"], default="smoke")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--victim-epochs", type=int, default=10)
     parser.add_argument("--final-epochs", type=int, default=14)
@@ -26,6 +26,9 @@ def main() -> None:
         for noise in ("phase_flip", "bit_flip", "amplitude_damping"):
             for probability in ("0.002", "0.005", "0.01"):
                 plans.append((f"noise_{noise}_{probability}", ["--datasets", "MNIST", "Wafer", "--victims", "cnn", "cnn1d", "--budgets", "256", "--seeds", "7,19,31,43,59", "--qubits", "4", "--layers", "3", "--features", "16", "--noise-kind", noise, "--noise-p", probability]))
+    if args.mode in {"defense", "all"}:
+        for probability in ("0.01", "0.05", "0.10"):
+            plans.append((f"defense_label_noise_{probability}", ["--datasets", "MNIST", "Wafer", "--victims", "cnn", "cnn1d", "--budgets", "128,256,512", "--seeds", "7,19,31,43,59", "--qubits", "4", "--layers", "3", "--features", "16", "--defense-label-noise", probability]))
     for name, extra in plans:
         command = [sys.executable, "run_active_hardlabel_benchmark.py", *common, *extra, "--output", f"study_{name}.csv"]
         print(" ".join(command))
