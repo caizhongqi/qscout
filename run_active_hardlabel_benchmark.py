@@ -239,6 +239,39 @@ def main() -> None:
     print(f"results: {path}")
     print(f"summary: {summary_path}")
 
+    # Compare policy-selected classical clones with matched seed/budget cells.
+    paired: dict[tuple[object, ...], dict[str, float]] = defaultdict(dict)
+    for row in rows:
+        if row["strategy"] not in {"active", "classical_active"}:
+            continue
+        key = tuple(row[k] for k in ("dataset", "victim", "seed", "budget", "qubits", "layers", "entanglement", "noise_kind", "noise_p"))
+        metric = "hybrid_clone_agreement" if row["strategy"] == "active" else "classical_active_clone_agreement"
+        paired[key][str(row["strategy"])] = float(row[metric])
+    grouped_deltas: dict[tuple[object, ...], list[float]] = defaultdict(list)
+    for key, values in paired.items():
+        if {"active", "classical_active"}.issubset(values):
+            grouped_deltas[key[:2] + key[3:]].append(values["active"] - values["classical_active"])
+    comparison_rows = []
+    for key, deltas in grouped_deltas.items():
+        values = np.asarray(deltas, dtype=float)
+        se = float(values.std(ddof=1) / np.sqrt(len(values))) if len(values) > 1 else 0.0
+        comparison_rows.append({
+            **dict(zip(("dataset", "victim", "budget", "qubits", "layers", "entanglement", "noise_kind", "noise_p"), key)),
+            "paired_runs": len(values),
+            "qnn_guided_minus_classical_active_mean": float(values.mean()),
+            "qnn_guided_minus_classical_active_std": float(values.std(ddof=1)) if len(values) > 1 else 0.0,
+            "normal_95ci_low": float(values.mean() - 1.96 * se),
+            "normal_95ci_high": float(values.mean() + 1.96 * se),
+            "wins": int(np.sum(values > 0.0)), "ties": int(np.sum(values == 0.0)), "losses": int(np.sum(values < 0.0)),
+        })
+    comparison_path = path.with_name(path.stem + "_paired_policy_comparison.csv")
+    if comparison_rows:
+        with comparison_path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=list(comparison_rows[0]))
+            writer.writeheader()
+            writer.writerows(comparison_rows)
+        print(f"paired policy comparison: {comparison_path}")
+
 
 if __name__ == "__main__":
     main()
