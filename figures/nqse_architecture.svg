@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="NQSE hard-label black-box extraction architecture">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#1f2937"/></marker></defs>
+  <rect width="1200" height="520" fill="#ffffff"/>
+  <text x="600" y="44" text-anchor="middle" font-family="Arial" font-size="26" font-weight="bold" fill="#111827">NQSE: Noise-Aware Quantum Surrogate Extraction</text>
+  <rect x="55" y="150" width="210" height="170" rx="8" fill="#e0f2fe" stroke="#0369a1" stroke-width="2"/>
+  <text x="160" y="193" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold">Query source</text>
+  <text x="160" y="227" text-anchor="middle" font-family="Arial" font-size="16">public / synthetic x</text>
+  <text x="160" y="253" text-anchor="middle" font-family="Arial" font-size="16">query budget Q</text>
+  <text x="160" y="279" text-anchor="middle" font-family="Arial" font-size="16">no private target data</text>
+  <line x1="265" y1="235" x2="355" y2="235" stroke="#1f2937" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="355" y="130" width="220" height="210" rx="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="465" y="174" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold">Classical victim f</text>
+  <text x="465" y="207" text-anchor="middle" font-family="Arial" font-size="16">CNN / MLP / 1D-CNN / LSTM</text>
+  <text x="465" y="239" text-anchor="middle" font-family="Arial" font-size="16">black-box API</text>
+  <text x="465" y="272" text-anchor="middle" font-family="Arial" font-size="16">returns top-1 label only</text>
+  <text x="465" y="304" text-anchor="middle" font-family="Arial" font-size="16">no logits, gradients, or weights</text>
+  <line x1="575" y1="235" x2="655" y2="235" stroke="#1f2937" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="615" y="214" text-anchor="middle" font-family="Arial" font-size="15" fill="#7c2d12">y=f(x)</text>
+  <rect x="655" y="95" width="290" height="280" rx="8" fill="#ecfccb" stroke="#4d7c0f" stroke-width="2"/>
+  <text x="800" y="135" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold">Noise-aware VQC phi_theta</text>
+  <text x="800" y="172" text-anchor="middle" font-family="Arial" font-size="16">data reuploading: RY(x), RZ(x^2/pi)</text>
+  <text x="800" y="202" text-anchor="middle" font-family="Arial" font-size="16">trainable RX, RY, RZ blocks</text>
+  <text x="800" y="232" text-anchor="middle" font-family="Arial" font-size="16">CNOT entanglement topology</text>
+  <text x="800" y="262" text-anchor="middle" font-family="Arial" font-size="16">CPTP phase/amplitude noise</text>
+  <text x="800" y="292" text-anchor="middle" font-family="Arial" font-size="16">measure Z and nearest-neighbor ZZ</text>
+  <text x="800" y="328" text-anchor="middle" font-family="Arial" font-size="15" fill="#3f6212">density-matrix simulation / finite-shot replay</text>
+  <line x1="945" y1="235" x2="1020" y2="235" stroke="#1f2937" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="1020" y="150" width="140" height="170" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="1090" y="193" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold">Readout W</text>
+  <text x="1090" y="225" text-anchor="middle" font-family="Arial" font-size="16">linear logits</text>
+  <text x="1090" y="253" text-anchor="middle" font-family="Arial" font-size="16">surrogate g</text>
+  <text x="1090" y="281" text-anchor="middle" font-family="Arial" font-size="16">agreement</text>
+  <text x="600" y="450" text-anchor="middle" font-family="Arial" font-size="17" fill="#374151">Goal: imitate the victim's decision behavior, not identify its unique parameters.</text>
+</svg>
