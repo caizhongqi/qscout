@@ -30,6 +30,8 @@ class ActiveQueryConfig:
     data_reuploading: bool = True
     measure_zz: bool = True
     feature_cycling: bool = True
+    committee_size: int = 3
+    committee_disagreement_weight: float = 0.20
     seed: int = 7
 
 
@@ -55,25 +57,36 @@ def select_hard_label_queries(
     while len(selected) < config.budget:
         remaining = np.setdiff1d(np.arange(len(x_pool)), np.asarray(selected), assume_unique=False)
         candidates = rng.choice(remaining, size=min(config.candidate_size, len(remaining)), replace=False)
-        extractor = GeneralQuantumExtractor(
-            n_qubits=config.n_qubits,
-            n_layers=config.n_layers,
-            entanglement=config.entanglement,
-            data_reuploading=config.data_reuploading,
-            measure_zz=config.measure_zz,
-            feature_cycling=config.feature_cycling,
-            seed=config.seed + len(selected),
-        )
-        qnn = extractor.fit_from_labels(
-            x_pool[selected], np.asarray(labels), n_classes=n_classes, epochs=config.warm_epochs
-        )["qnn"]
-        probs = softmax(qnn.logits(x_pool[candidates]))
+        committee_probs = []
+        for member in range(config.committee_size):
+            extractor = GeneralQuantumExtractor(
+                n_qubits=config.n_qubits,
+                n_layers=config.n_layers,
+                entanglement=config.entanglement,
+                data_reuploading=config.data_reuploading,
+                measure_zz=config.measure_zz,
+                feature_cycling=config.feature_cycling,
+                seed=config.seed + len(selected) + 10_007 * member,
+            )
+            qnn = extractor.fit_from_labels(
+                x_pool[selected], np.asarray(labels), n_classes=n_classes, epochs=config.warm_epochs
+            )["qnn"]
+            committee_probs.append(softmax(qnn.logits(x_pool[candidates])))
+        probs = np.mean(committee_probs, axis=0)
         top2 = np.partition(probs, -2, axis=1)[:, -2:]
         uncertainty = 1.0 - (top2[:, 1] - top2[:, 0])
+        disagreement = np.mean(np.var(np.asarray(committee_probs), axis=0), axis=1)
         distances = np.linalg.norm(
             x_pool[candidates, None, :] - x_pool[np.asarray(selected)][None, :, :], axis=2
         ).min(axis=1)
-        score = (1.0 - config.diversity_weight) * _minmax(uncertainty) + config.diversity_weight * _minmax(distances)
+        remaining_weight = 1.0 - config.diversity_weight - config.committee_disagreement_weight
+        if remaining_weight < 0:
+            raise ValueError("diversity and committee weights must sum to at most one")
+        score = (
+            remaining_weight * _minmax(uncertainty)
+            + config.diversity_weight * _minmax(distances)
+            + config.committee_disagreement_weight * _minmax(disagreement)
+        )
         take = min(config.batch_size, config.budget - len(selected))
         picked = candidates[np.argsort(score)[-take:]]
         selected.extend(int(i) for i in picked)
