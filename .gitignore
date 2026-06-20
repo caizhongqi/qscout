@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Local data, generated artifacts, and downloaded baselines
+data_public/
+outputs/
+tmp/
+third_party/
+*.csv
+*.png
+*.pdf
+
+# Credentials and machine-local configuration
+.env
+.env.*
+*.pem
+*.key
+ibm_token.txt
+
+# Editors and operating systems
+.vscode/*.log
+.idea/
+Thumbs.db
+Desktop.ini
