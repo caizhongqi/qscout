@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import csv
 from pathlib import Path
+import time
 import warnings
 from collections import defaultdict
 
@@ -101,6 +102,7 @@ def select_classical_active_queries(x_pool, label_fn, *, budget: int, n_classes:
 
 def run_one(data, victim, strategy: str, budget: int, seed: int, args) -> dict[str, object]:
     rng = np.random.default_rng(seed)
+    started = time.perf_counter()
     pool_raw = data.x_train
     test_raw = data.x_test[: min(args.eval_samples, len(data.x_test))]
     # The QNN guide sees a compact NISQ-compatible representation, while the
@@ -113,10 +115,23 @@ def run_one(data, victim, strategy: str, budget: int, seed: int, args) -> dict[s
     clone_pool = clone_projector.fit_transform(flat(pool_raw))
     clone_test = clone_projector.transform(flat(test_raw))
     victim_pred = victim.predict(test_raw)
+    query_rng = np.random.default_rng(seed + 100_003)
+
+    def defended_labels(indices: np.ndarray) -> np.ndarray:
+        """Hard-label response randomization defense; clean labels remain the evaluator target."""
+        labels = np.asarray(victim.predict(pool_raw[indices]), dtype=int)
+        if args.defense_label_noise <= 0.0:
+            return labels
+        flip = query_rng.random(len(labels)) < args.defense_label_noise
+        replacements = query_rng.integers(0, data.n_classes - 1, size=int(flip.sum()))
+        labels[flip] = (labels[flip] + 1 + replacements) % data.n_classes
+        return labels
+
+    selection_started = time.perf_counter()
     if strategy == "active":
         indices, labels = select_hard_label_queries(
             pool,
-            lambda indices: victim.predict(pool_raw[indices]),
+            defended_labels,
             n_classes=data.n_classes,
             config=ActiveQueryConfig(
                 budget=budget, initial_queries=min(args.initial_queries, budget), batch_size=args.batch_size,
@@ -126,19 +141,22 @@ def run_one(data, victim, strategy: str, budget: int, seed: int, args) -> dict[s
         )
     elif strategy == "classical_active":
         indices, labels = select_classical_active_queries(
-            clone_pool, lambda idx: victim.predict(pool_raw[idx]), budget=budget,
+            clone_pool, defended_labels, budget=budget,
             n_classes=data.n_classes, seed=seed, initial=min(args.initial_queries, budget),
             batch=args.batch_size, candidates=args.candidates,
         )
     else:
         indices = rng.choice(len(pool), size=budget, replace=False)
-        labels = victim.predict(pool_raw[indices])
+        labels = defended_labels(indices)
+    selection_seconds = time.perf_counter() - selection_started
+    qnn_started = time.perf_counter()
     extractor = GeneralQuantumExtractor(
         n_qubits=args.qubits, n_layers=args.layers, entanglement=args.entanglement,
         data_reuploading=True, measure_zz=True, feature_cycling=True,
         noise_kind=args.noise_kind, noise_p=args.noise_p, seed=seed,
     )
     qnn = extractor.fit_from_labels(pool[indices], labels, n_classes=data.n_classes, epochs=args.final_epochs)["qnn"]
+    qnn_fit_seconds = time.perf_counter() - qnn_started
     qnn_agreement = float(np.mean(qnn.predict(test) == victim_pred))
     logistic, mlp = fit_classical(clone_pool[indices], labels, clone_test, victim_pred, seed)
     counts = np.bincount(victim_pred, minlength=data.n_classes)
@@ -156,6 +174,11 @@ def run_one(data, victim, strategy: str, budget: int, seed: int, args) -> dict[s
         "passes_classical_gate": bool(qnn_agreement >= mlp),
         "qubits": args.qubits, "layers": args.layers, "entanglement": args.entanglement,
         "noise_kind": args.noise_kind, "noise_p": args.noise_p,
+        "defense_label_noise": args.defense_label_noise,
+        "query_count": int(len(indices)),
+        "selection_seconds": selection_seconds,
+        "qnn_fit_seconds": qnn_fit_seconds,
+        "total_seconds": time.perf_counter() - started,
     }
 
 
@@ -183,6 +206,7 @@ def main() -> None:
     parser.add_argument("--entanglement", default="circular", choices=["none", "linear", "circular", "star", "full"])
     parser.add_argument("--noise-kind", default="none", choices=["none", "phase_flip", "bit_flip", "amplitude_damping"])
     parser.add_argument("--noise-p", type=float, default=0.0)
+    parser.add_argument("--defense-label-noise", type=float, default=0.0, help="Probability that the API replaces a returned hard label.")
     parser.add_argument("--eval-samples", type=int, default=1500)
     parser.add_argument("--output", default="active_hardlabel_benchmark.csv")
     args = parser.parse_args()
@@ -218,10 +242,10 @@ def main() -> None:
         writer.writerows(rows)
     groups: dict[tuple[object, ...], list[dict[str, object]]] = defaultdict(list)
     for row in rows:
-        key = tuple(row[k] for k in ("dataset", "victim", "strategy", "budget", "qubits", "layers", "entanglement", "noise_kind", "noise_p"))
+        key = tuple(row[k] for k in ("dataset", "victim", "strategy", "budget", "qubits", "layers", "entanglement", "noise_kind", "noise_p", "defense_label_noise"))
         groups[key].append(row)
     summary_path = path.with_name(path.stem + "_summary.csv")
-    fields = ["dataset", "victim", "strategy", "budget", "qubits", "layers", "entanglement", "noise_kind", "noise_p", "runs", "victim_accuracy_mean", "qnn_agreement_mean", "qnn_agreement_std", "mlp_agreement_mean", "mlp_agreement_std", "majority_agreement_mean", "qnn_gain_over_majority_mean"]
+    fields = ["dataset", "victim", "strategy", "budget", "qubits", "layers", "entanglement", "noise_kind", "noise_p", "defense_label_noise", "runs", "victim_accuracy_mean", "qnn_agreement_mean", "qnn_agreement_std", "mlp_agreement_mean", "mlp_agreement_std", "majority_agreement_mean", "qnn_gain_over_majority_mean", "selection_seconds_mean", "qnn_fit_seconds_mean", "total_seconds_mean"]
     with summary_path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
@@ -230,11 +254,14 @@ def main() -> None:
             mlp = np.array([float(v["mlp_agreement"]) for v in values])
             majority = np.array([float(v["majority_agreement"]) for v in values])
             writer.writerow({
-                **dict(zip(fields[:9], key)), "runs": len(values),
+                **dict(zip(fields[:10], key)), "runs": len(values),
                 "victim_accuracy_mean": float(np.mean([float(v["victim_accuracy"]) for v in values])),
                 "qnn_agreement_mean": float(qnn.mean()), "qnn_agreement_std": float(qnn.std(ddof=1)) if len(qnn) > 1 else 0.0,
                 "mlp_agreement_mean": float(mlp.mean()), "mlp_agreement_std": float(mlp.std(ddof=1)) if len(mlp) > 1 else 0.0,
-                "majority_agreement_mean": float(majority.mean()), "qnn_gain_over_majority_mean": float(np.mean([float(v["qnn_gain_over_majority"]) for v in values]),)
+                "majority_agreement_mean": float(majority.mean()), "qnn_gain_over_majority_mean": float(np.mean([float(v["qnn_gain_over_majority"]) for v in values]),),
+                "selection_seconds_mean": float(np.mean([float(v["selection_seconds"]) for v in values])),
+                "qnn_fit_seconds_mean": float(np.mean([float(v["qnn_fit_seconds"]) for v in values])),
+                "total_seconds_mean": float(np.mean([float(v["total_seconds"]) for v in values])),
             })
     print(f"results: {path}")
     print(f"summary: {summary_path}")
@@ -244,7 +271,7 @@ def main() -> None:
     for row in rows:
         if row["strategy"] not in {"active", "classical_active"}:
             continue
-        key = tuple(row[k] for k in ("dataset", "victim", "seed", "budget", "qubits", "layers", "entanglement", "noise_kind", "noise_p"))
+        key = tuple(row[k] for k in ("dataset", "victim", "seed", "budget", "qubits", "layers", "entanglement", "noise_kind", "noise_p", "defense_label_noise"))
         metric = "hybrid_clone_agreement" if row["strategy"] == "active" else "classical_active_clone_agreement"
         paired[key][str(row["strategy"])] = float(row[metric])
     grouped_deltas: dict[tuple[object, ...], list[float]] = defaultdict(list)
@@ -256,7 +283,7 @@ def main() -> None:
         values = np.asarray(deltas, dtype=float)
         se = float(values.std(ddof=1) / np.sqrt(len(values))) if len(values) > 1 else 0.0
         comparison_rows.append({
-            **dict(zip(("dataset", "victim", "budget", "qubits", "layers", "entanglement", "noise_kind", "noise_p"), key)),
+            **dict(zip(("dataset", "victim", "budget", "qubits", "layers", "entanglement", "noise_kind", "noise_p", "defense_label_noise"), key)),
             "paired_runs": len(values),
             "qnn_guided_minus_classical_active_mean": float(values.mean()),
             "qnn_guided_minus_classical_active_std": float(values.std(ddof=1)) if len(values) > 1 else 0.0,
