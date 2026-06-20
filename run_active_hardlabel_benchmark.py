@@ -137,6 +137,7 @@ def run_one(data, victim, strategy: str, budget: int, seed: int, args) -> dict[s
                 budget=budget, initial_queries=min(args.initial_queries, budget), batch_size=args.batch_size,
                 candidate_size=args.candidates, warm_epochs=args.warm_epochs, diversity_weight=args.diversity_weight,
                 n_qubits=args.qubits, n_layers=args.layers, entanglement=args.entanglement, seed=seed,
+                committee_size=args.committee_size, committee_disagreement_weight=args.committee_disagreement_weight,
             ),
         )
     elif strategy == "classical_active":
@@ -197,6 +198,8 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--candidates", type=int, default=384)
     parser.add_argument("--diversity-weight", type=float, default=0.35)
+    parser.add_argument("--committee-size", type=int, default=3)
+    parser.add_argument("--committee-disagreement-weight", type=float, default=0.20)
     parser.add_argument("--features", type=int, default=16)
     parser.add_argument("--qubits", type=int, default=3)
     parser.add_argument("--layers", type=int, default=2)
