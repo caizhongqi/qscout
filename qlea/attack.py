@@ -103,6 +103,7 @@ class GeneralQuantumExtractor:
     data_reuploading: bool = True
     measure_zz: bool = True
     feature_cycling: bool = True
+    data_entanglement: bool = True
     seed: int = 13
 
     def fit(
@@ -124,6 +125,7 @@ class GeneralQuantumExtractor:
             data_reuploading=self.data_reuploading,
             measure_zz=self.measure_zz,
             feature_cycling=self.feature_cycling,
+            data_entanglement=self.data_entanglement,
         )
         qnn = QuantumClassifier.create(fmap, n_classes=n_classes, rng=rng)
         history = qnn.fit(query_x, hard_labels, epochs=epochs, seed=self.seed + 1)
@@ -147,6 +149,7 @@ class GeneralQuantumExtractor:
             data_reuploading=self.data_reuploading,
             measure_zz=self.measure_zz,
             feature_cycling=self.feature_cycling,
+            data_entanglement=self.data_entanglement,
         )
         qnn = QuantumClassifier.create(fmap, n_classes=n_classes, rng=rng)
         history = qnn.fit(query_x, hard_labels, epochs=epochs, seed=self.seed + 1)
