@@ -54,6 +54,17 @@ def cnot_operator(control: int, target: int, n_qubits: int) -> np.ndarray:
     return op
 
 
+def rzz_operator(theta: float, left: int, right: int, n_qubits: int) -> np.ndarray:
+    """Return exp(-i theta Z_left Z_right / 2) on an n-qubit register."""
+    dim = 2**n_qubits
+    op = np.zeros((dim, dim), dtype=complex)
+    for basis in range(dim):
+        bits = [(basis >> (n_qubits - 1 - i)) & 1 for i in range(n_qubits)]
+        eigenvalue = (1.0 if bits[left] == 0 else -1.0) * (1.0 if bits[right] == 0 else -1.0)
+        op[basis, basis] = np.exp(-0.5j * float(theta) * eigenvalue)
+    return op
+
+
 def zero_density(n_qubits: int) -> np.ndarray:
     psi = np.zeros((2**n_qubits, 1), dtype=complex)
     psi[0, 0] = 1.0
