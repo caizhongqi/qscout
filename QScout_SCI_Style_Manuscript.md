@@ -24,21 +24,77 @@ Model extraction from prediction APIs was established by Tramèr et al.; subsequ
 
 Quantum-security work has shown that security claims depend strongly on the physical interface and noise model. Pulse-level attacks concern quantum control interfaces rather than classical ML APIs. Recent adversarial-QML evaluations similarly show that encoding choice, depth, and noise can reverse conclusions. Q-Scout is distinguished by its classical hard-label target interface and by treating quantum computation as a local, noisy query-ranking module.
 
-## 3. Model and Definitions
+## 3. Theoretical Foundation of Q-CABS
 
-Let a victim classifier be `f: X -> [C]`, exposed only through `O_f(x)=argmax_c f_c(x)`. An attacker receives a public unlabeled pool `P`, may adaptively select at most `Q` inputs, and observes a transcript `T_Q={(x_t,O_f(x_t))}_{t=1}^Q`. It has no access to confidence scores, gradients, parameters, architecture, training examples, or a coherent quantum channel to the victim.
+### 3.1 Threat model and notation
 
-The final clone `g_Q` is evaluated on a held-out clean distribution by functional fidelity
+Let a victim classifier be `f: X -> [C]`, exposed only through the classical oracle `O_f(x)=argmax_c f_c(x)`. An attacker receives a public unlabeled pool `P`, may adaptively select at most `Q` classical inputs, and observes a transcript `T_Q={(x_t,O_f(x_t))}_{t=1}^Q`. It has no access to confidence scores, gradients, parameters, architecture, training examples, or a coherent quantum channel to the victim. All quantum operations occur locally at the attacker.
 
-`F(g_Q,f)=Pr[g_Q(x)=O_f(x)]`.
+The final clone `g_Q` is evaluated on a held-out clean distribution by functional fidelity `F(g_Q,f)=Pr[g_Q(x)=O_f(x)]`. We additionally report majority fidelity `F_major`, victim-correct fidelity, and `Q_tau=min{Q:F(g_Q,f)>=tau}`. A query policy improves extraction only if it improves a capacity-matched final clone under the same pool, budget, preprocessing, and seed.
 
-We additionally report majority fidelity `F_major`, victim-correct fidelity, and `Q_tau=min{Q:F(g_Q,f)>=tau}`. A query policy improves extraction only if it improves a capacity-matched final clone under the same pool, budget, preprocessing, and seed.
+### 3.2 Quantum state model
 
-**Proposition 1 (hard-label information limit).** A `Q`-query transcript from a `C`-class hard-label oracle contains at most `Q log2 C` response bits conditional on the selected queries. Consequently, it cannot by itself identify an unrestricted real-valued parameter vector.  
-*Justification.* Each oracle response has at most `C` outcomes; the chain rule bounds conditional transcript entropy by the sum of response entropies. This does not preclude functional approximation using public distributional structure.
+Let `z=P_q(x) in R^d` be a public low-dimensional representation and let `rho_0=|0><0|^(tensor n)` be an `n`-qubit initial state. Committee member `m` applies a data-reuploading circuit
 
-**Proposition 2 (finite-pool selection limit).** For a finite selector family `A` and clone class `H`, uniform concentration requires an uncertainty term of order `sqrt((log|A|+log|H|+log(1/delta))/Q)`. A larger circuit search space therefore requires more, not fewer, hard-label queries.  
-This proposition motivates pre-registering circuit ablations and reporting failed capacity cells.
+`U_m(z;theta_m)=prod_(l=0)^(L-1) E_(G,l) V(theta_(m,l)) D_l(z)`,
+
+where `D_l` contains `RY` and `RZ` encodings of cycling feature `(j+ln) mod d`, `V` contains trainable local Pauli rotations, and `E_G` is a CNOT entanglement layer. A noisy execution is
+
+`rho_m(z)=N_p o Ad_(U_m(z;theta_m))(rho_0)`,
+
+where `Ad_U(rho)=U rho U^dagger` and `N_p` is a local phase-flip, bit-flip, or amplitude-damping channel. The readout vector consists of Pauli observables `O_k in {Z_i,Z_i Z_(i+1)}`:
+
+`r_(m,k)(z)=Tr[O_k rho_m(z)]`.
+
+### 3.3 Physical validity theorem
+
+**Theorem 1 (physical realizability).** If every `D_l`, `V`, and `E_G` is composed of standard unitary gates and `N_p` is a completely positive trace-preserving (CPTP) channel, then `rho_m(z)` is a valid density operator for every input and every committee member. Every Q-CABS readout is therefore a Born-rule expectation of a bounded observable and can be estimated on a standard gate-based NISQ device.
+
+**Proof sketch.** The initial state is positive semidefinite with trace one. Unitary conjugation preserves both properties. CPTP maps preserve positivity and trace. Hence the final state is a density operator. Since each Pauli observable has spectrum in `{-1,+1}`, its expectation is a valid physical measurement statistic. This theorem rules out nonphysical claims such as extracting information from an unmeasured state or sending entangled queries to a classical-only API.
+
+### 3.4 Finite-shots certificate
+
+For `S` independent shots, write `rhat_(m,k)` for the empirical mean of observable `O_k`. Let `K` be the number of Z and ZZ observables.
+
+**Theorem 2 (uniform measurement certificate).** For any `delta in (0,1)`, with probability at least `1-delta`,
+
+`max_(m,k) |rhat_(m,k)-r_(m,k)| <= epsilon_S(delta)`
+
+where
+
+`epsilon_S(delta)=sqrt(log(2MK/delta)/(2S))`.
+
+**Proof sketch.** Each shot of a Pauli observable is a bounded random variable in `[-1,1]`. Hoeffding's inequality bounds one empirical expectation; a union bound over `M` committee members and `K` observables gives the result. The certificate is used to distinguish true surrogate ambiguity from finite-shot fluctuation.
+
+### 3.5 Noise sensitivity and ranking stability
+
+Let `a_m(z)=W_m r_m(z)+b_m`, `p_m=softmax(a_m)`, and `pbar=M^(-1) sum_m p_m`. Q-CABS combines boundary uncertainty, committee disagreement, coverage, and a shot-risk penalty:
+
+`s(z)=alpha[1-(pbar_(1)-pbar_(2))]+beta M^(-1)sum_m||p_m-pbar||_2^2+gamma C(z)-eta R_S(z)`.
+
+Assume the score is `L_s`-Lipschitz with respect to the concatenated readout vector in the operating region. This is satisfied when readout-head norms are bounded and the top-two class ordering is locally unchanged.
+
+**Theorem 3 (certified pairwise ranking).** Under the event in Theorem 2, the finite-shot score obeys `|shat(z)-s(z)| <= L_s epsilon_S(delta)`. For two candidates `z_a,z_b`, if
+
+`s(z_a)-s(z_b) > 2 L_s epsilon_S(delta)`,
+
+then their order is unchanged by finite-shot estimation with probability at least `1-delta`.
+
+**Proof sketch.** Apply the Lipschitz condition separately to both candidates and use the triangle inequality. The strict score-gap condition leaves a margin larger than the maximum two-sided perturbation. This is the theoretical role of the shots-risk term: it penalizes candidates whose apparent uncertainty is smaller than their measurement uncertainty.
+
+For physical noise, any Pauli observable has `|Tr[O(rho-rho')]| <= ||rho-rho'||_1`. Thus a calibrated upper bound on channel-induced trace distance can be propagated into an additional conservative term in `R_S`. This is a robustness certificate for *query ordering*, not a guarantee of victim-clone fidelity.
+
+### 3.6 Information-theoretic and learning-theoretic limits
+
+**Proposition 4 (hard-label information limit).** A `Q`-query transcript from a `C`-class hard-label oracle contains at most `Q log2 C` response bits conditional on selected inputs. It cannot, without additional structural assumptions, identify an unrestricted real-valued target parameter vector.
+
+**Proposition 5 (selector complexity penalty).** For a finite selector family `A` and clone class `H`, uniform finite-query generalization incurs a term of order `sqrt((log|A|+log|H|+log(1/delta))/Q)`. Increasing circuit families or committee size may improve representation, but also increases selection complexity and cannot be presented as free information.
+
+These propositions explain why the paper evaluates functional extraction rather than parameter recovery and why larger circuits are treated as an ablation rather than an assumed improvement.
+
+### 3.7 What the theory does not claim
+
+Theorems 1--3 establish physical validity and finite-shot ranking stability; Propositions 4--5 establish limits. None proves a computational quantum advantage over classical active learning. That claim remains empirical and requires positive paired multi-seed comparisons against Classical-Active and QEDG. This separation is essential: it prevents a physically valid QNN from being mistaken for a proven superior attack.
 
 ## 4. Q-Scout Construction
 
