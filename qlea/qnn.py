@@ -11,6 +11,7 @@ from .quantum import (
     apply_unitary,
     cnot_operator,
     noise_kraus,
+    rzz_operator,
     rx,
     ry,
     rz,
@@ -37,6 +38,7 @@ class QuantumFeatureMap:
     data_reuploading: bool = True
     measure_zz: bool = True
     feature_cycling: bool = True
+    data_entanglement: bool = True
 
     @property
     def n_parameters(self) -> int:
@@ -80,6 +82,7 @@ class QuantumFeatureMap:
 
     def _encode(self, rho: np.ndarray, x: np.ndarray, layer: int = 0) -> np.ndarray:
         scale = 1.0 / np.sqrt(layer + 1.0)
+        angles = []
         for wire in range(self.n_qubits):
             feature_index = wire
             if self.feature_cycling:
@@ -87,11 +90,21 @@ class QuantumFeatureMap:
                 # compressed representation before cycling back to the start.
                 feature_index = wire + layer * self.n_qubits
             angle = float(x[feature_index % x.shape[0]]) * scale
+            angles.append(angle)
             rho = apply_unitary(rho, one_qubit_operator(ry(angle), wire, self.n_qubits))
             rho = apply_unitary(
                 rho,
                 one_qubit_operator(rz(angle * angle / np.pi), wire, self.n_qubits),
             )
+        if self.data_entanglement and self.n_qubits > 1:
+            # Data-dependent Ising coupling encodes pairwise feature relations
+            # before the trainable CNOT topology mixes them across the register.
+            for wire in range(self.n_qubits):
+                right = (wire + 1) % self.n_qubits
+                rho = apply_unitary(
+                    rho,
+                    rzz_operator(angles[wire] * angles[right], wire, right, self.n_qubits),
+                )
         return rho
 
     def transform_one(self, x: np.ndarray, theta: np.ndarray) -> np.ndarray:
