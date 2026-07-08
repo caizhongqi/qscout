@@ -1,0 +1,17 @@
+budget,language,tasks_x_seeds,main_asr,baseline,baseline_asr,absolute_gain_pp
+4,c,95,0.3368,classical_active_comment,0.3368,+0.00
+4,cpp,90,0.0556,classical_active_comment,0.0556,+0.00
+4,csharp,70,0.0714,classical_active_comment,0.0571,+1.43
+4,java,90,0.0556,classical_active_comment,0.0556,+0.00
+4,javascript,70,0.2143,classical_active_comment,0.0714,+14.29
+4,php,65,0.3385,classical_active_comment,0.2308,+10.77
+4,python,70,0.1286,classical_active_comment,0.0429,+8.57
+4,rust,50,0.0000,classical_active_comment,0.0000,+0.00
+8,c,95,0.4211,classical_active_comment,0.3895,+3.16
+8,cpp,90,0.0556,classical_active_comment,0.0556,+0.00
+8,csharp,70,0.0714,classical_active_comment,0.0714,+0.00
+8,java,90,0.0556,classical_active_comment,0.0556,+0.00
+8,javascript,70,0.2143,classical_active_comment,0.1429,+7.14
+8,php,65,0.3846,classical_active_comment,0.3692,+1.54
+8,python,70,0.1429,classical_active_comment,0.1000,+4.29
+8,rust,50,0.0200,classical_active_comment,0.0000,+2.00

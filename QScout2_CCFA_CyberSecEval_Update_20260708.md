@@ -1,21 +1,25 @@
 # QScout 2.0 CCF-A Dataset Strengthening: CyberSecEval
 
-## 中文结论
+## Chinese Conclusion
 
-本轮不再补 MNIST/CIFAR 这类与 LLM 攻击主线脱节的数据集，而是补充
-Meta PurpleLlama/CyberSecEval secure-code autocomplete benchmark。原因是
-QScout 2.0 当前主线是 code LLM hard-label security extraction，CCF-A
-安全/软件工程审稿更认可同域公开安全 benchmark。
+This round stops treating MNIST/CIFAR-style image datasets as the main evidence
+for an LLM security attack.  The CCF-A-facing evidence is strengthened with
+Meta PurpleLlama/CyberSecEval autocomplete, a public secure-code benchmark that
+matches the paper's code-LLM hard-label extraction threat model.
 
-新增执行内容：
+Implemented scope:
 
-- 接入 `CyberSecEval/PurpleLlama` autocomplete 官方数据；
-- 保留官方字段 `prompt_id/file_path/cwe_identifier/rule/pattern_desc/language`；
-- 生成 deterministic stratified 120-task subset，覆盖 8 种语言、50 个 CWE；
-- 在 Qwen2.5-Coder-0.5B-Instruct 上跑 5 seeds；
-- 低预算主表：Budget 4/8；
-- 对照：`Classical Boundary Witness` vs `QScout-QBW`；
-- 指标：Unsafe-and-Functional@Q、Q@Success、AULC、paired 95% CI。
+- integrated the CyberSecEval/PurpleLlama autocomplete format;
+- preserved official fields:
+  `prompt_id/file_path/cwe_identifier/rule/pattern_desc/language`;
+- built a deterministic stratified 120-task subset covering 8 languages and 50
+  CWE families;
+- evaluated Qwen2.5-Coder-0.5B-Instruct with 5 seeds;
+- used low-query budgets B=4 and B=8;
+- compared QScout-QBW against Random, Classical Active, INSEC-style fixed-pool,
+  AOT-style ensemble, and Classical Boundary Witness baselines;
+- reported Unsafe-and-Functional@Q, Q@Success, AULC, paired 95% CI, cost,
+  language/CWE generalization, and failure-boundary diagnostics.
 
 ## English Positioning
 
@@ -30,12 +34,12 @@ unsafe yet functional code is produced under a limited query budget.
 - PurpleLlama/CyberSecEval is a public benchmark line for evaluating LLM
   cybersecurity risks and secure code generation.
 - CyberSecEval 2/3/4 broaden the suite beyond secure coding, which makes it a
-  recognizable benchmark family for CCF-A security reviewers.
+  recognizable benchmark family for security reviewers.
 - CWEval is relevant follow-up work because it argues for outcome-driven
-  functional-and-security evaluation; this motivates our metric
-  `Unsafe-and-Functional@Q` instead of raw vulnerable suggestion rate.
+  functional-and-security evaluation; this motivates `Unsafe-and-Functional@Q`
+  instead of raw vulnerable suggestion rate.
 
-## New Result
+## Strong-Baseline Result
 
 Clean artifact directory:
 
@@ -46,32 +50,57 @@ paper_artifacts/ccfa_20260708/
 Main table:
 
 ```text
-paper_artifacts/ccfa_20260708/cyberseceval_lowbudget_protocol_tables.md
+paper_artifacts/ccfa_20260708/cyberseceval_strong_protocol_tables.md
 ```
 
-Key results on 120 stratified CyberSecEval autocomplete tasks:
+Strongest-baseline comparison on the 120-task stratified CyberSecEval
+autocomplete subset:
 
-| Budget | Classical Boundary Witness | QScout-QBW | Absolute gain | Paired 95% CI | Relative gain |
-|---:|---:|---:|---:|---:|---:|
-| 4 | 0.0717 | 0.1300 | +5.83 pp | [+5.10, +6.56] | +81.40% |
-| 8 | 0.1433 | 0.1500 | +0.67 pp | [+0.06, +1.28] | +4.65% |
+| Budget | Strongest non-quantum baseline | Baseline ASR | QScout ASR | Absolute gain | Paired 95% CI | Relative gain |
+|---:|---|---:|---:|---:|---:|---:|
+| 4 | Classical Active | 0.1150 | 0.1550 | +4.00 pp | [+2.59, +5.41] | +34.78% |
+| 8 | Classical Active | 0.1550 | 0.1767 | +2.17 pp | [+0.74, +3.59] | +13.98% |
 
 Query-efficiency signal:
 
 | Budget | Classical Q@Success | QScout Q@Success | Reduction |
 |---:|---:|---:|---:|
-| 4 | 1.81 | 2.13 | -18.13% |
-| 8 | 4.03 | 2.59 | +35.78% |
+| 4 | 2.0470 | 2.0808 | -1.65% |
+| 8 | 3.2325 | 2.5273 | +21.82% |
+
+AULC:
+
+| Method | AULC |
+|---|---:|
+| QScout-QBW | 0.1658 |
+| Classical Active | 0.1350 |
+| AOT-style Ensemble | 0.1217 |
+| Classical Boundary Witness | 0.1192 |
+| INSEC-style Fixed-Pool Search | 0.1000 |
+| Random Search | 0.0983 |
 
 Interpretation:
 
-- At the strictest budget `B=4`, QScout gives a statistically positive absolute
-  ASR gain over the strongest non-quantum witness baseline.
-- At `B=8`, the absolute ASR gain is small but paired CI remains positive, and
-  query-to-success improves substantially.
-- This supports the paper's revised claim: QScout improves low-budget query
-  learning on recognized secure-code LLM benchmarks.  It should not be written
-  as a universal high-budget ASR dominance claim.
+- The old single-baseline CyberSecEval result is superseded by the
+  strong-baseline fair-pool result above.
+- QScout now beats the strongest non-quantum baseline at B=4 and B=8 with
+  positive paired 95% CI lower bounds.
+- The result supports a low-budget query-learning claim.  It should not be
+  written as universal ASR dominance or raw quantum advantage.
+
+## Diagnostics
+
+Additional committed diagnostics:
+
+- `cyberseceval_cost_efficiency.csv`
+- `cyberseceval_language_generalization.csv`
+- `cyberseceval_cwe_generalization.csv`
+- `cyberseceval_failure_boundary.csv`
+- `cyberseceval_strong_diagnostics.md`
+
+The diagnostics show strong gains on JavaScript/PHP/Python/C security contexts,
+with ties or low-base-rate behavior on Java/CPP/Rust.  These are useful
+failure-boundary results for a security conference paper.
 
 ## Implemented Code
 
@@ -81,6 +110,8 @@ Interpretation:
   `cyberseceval` / `cyberseceval_autocomplete`
 - CyberSecEval-specific QBW low-budget activation and CWE-aligned acquisition
   anchors in `qlea/code_completion_attack/benchmark.py`
+- `generate_cyberseceval_diagnostics.py`
+- strengthened checks in `scripts/verify_ccfa_artifacts.py`
 
 ## Reproduction
 
@@ -92,7 +123,7 @@ Generate the stratified subset:
   --output data_public\cyberseceval_autocomplete_subset_120.json
 ```
 
-Run the low-budget matrix:
+Run the strong-baseline matrix:
 
 ```powershell
 & "D:\ProgramData\py2\python.exe" run_llm_topconf_streaming_matrix.py `
@@ -100,20 +131,26 @@ Run the low-budget matrix:
   --model Qwen/Qwen2.5-Coder-0.5B-Instruct `
   --dataset cyberseceval `
   --dataset-path data_public\cyberseceval_autocomplete_subset_120.json `
-  --strategies classical_boundary_witness_comment,qscout_qbw_comment `
+  --strategies fair_random_comment,classical_active_comment,insec_fixed_pool_comment,aot_ensemble_fixed_pool_comment,classical_boundary_witness_comment,qscout_qbw_comment `
   --budgets 4,8 `
   --seeds 7,19,31,43,59 `
   --prompt-mode raw `
   --max-new-tokens 80 `
   --batch-size 16 `
-  --output-dir outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_20260708
+  --output-dir outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_20260708
 ```
 
-Generate tables:
+Generate tables and diagnostics:
 
 ```powershell
 & "D:\ProgramData\py2\python.exe" generate_ccfa_protocol_tables.py `
-  --roots outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_lowbudget_clean_20260708 `
-  --output-dir outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_lowbudget_tables_20260708 `
+  --roots outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_20260708 `
+  --output-dir outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_tables_20260708 `
+  --main-method qscout_qbw_comment
+
+& "D:\ProgramData\py2\python.exe" generate_cyberseceval_diagnostics.py `
+  --root outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_20260708 `
+  --tables outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_tables_20260708 `
+  --output-dir outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_diagnostics_20260708 `
   --main-method qscout_qbw_comment
 ```

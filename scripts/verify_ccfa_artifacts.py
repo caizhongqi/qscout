@@ -22,6 +22,14 @@ STRICT_ABLATION = ROOT / "strict_qbw_ablation_budget_summary.csv"
 CYBER_COMPARISON = CYBER_ROOT / "ccfa_strongest_baseline_comparison.csv"
 CYBER_SEED_ROWS = CYBER_ROOT / "ccfa_seed_rows.csv"
 CYBER_SUBSET = CYBER_ROOT / "cyberseceval_autocomplete_subset_120.json"
+CYBER_DIAGNOSTICS = [
+    CYBER_ROOT / "cyberseceval_cost_efficiency.csv",
+    CYBER_ROOT / "cyberseceval_language_generalization.csv",
+    CYBER_ROOT / "cyberseceval_cwe_generalization.csv",
+    CYBER_ROOT / "cyberseceval_failure_boundary.csv",
+    CYBER_ROOT / "cyberseceval_strong_protocol_tables.md",
+    CYBER_ROOT / "cyberseceval_strong_diagnostics.md",
+]
 MECHANISM_FILES = [
     ROOT / "mechanism_securityeval_qwen05.csv",
     ROOT / "mechanism_llmseceval_qwen05.csv",
@@ -32,7 +40,7 @@ MECHANISM_FILES = [
 
 def main() -> None:
     _require_files([MAIN_COMPARISON, SEED_ROWS, STRICT_ABLATION, *MECHANISM_FILES])
-    _require_files([CYBER_COMPARISON, CYBER_SEED_ROWS, CYBER_SUBSET])
+    _require_files([CYBER_COMPARISON, CYBER_SEED_ROWS, CYBER_SUBSET, *CYBER_DIAGNOSTICS])
     main_rows = _read_csv(MAIN_COMPARISON)
     if len(main_rows) != 12:
         raise SystemExit(f"expected 12 main comparison rows, found {len(main_rows)}")
@@ -91,22 +99,33 @@ def main() -> None:
     for row in cyber_rows:
         if row["dataset"] != "cyberseceval":
             raise SystemExit(f"unexpected CyberSecEval dataset label: {row['dataset']}")
+        if row["strongest_nonquantum_baseline"] != "classical_active_comment":
+            raise SystemExit(
+                "CyberSecEval strongest baseline should be classical_active_comment "
+                f"at budget {row['budget']}, found {row['strongest_nonquantum_baseline']}"
+            )
         if float(row["absolute_gain_pp"]) <= 0.0:
             raise SystemExit(f"CyberSecEval non-positive gain at budget {row['budget']}")
+        if float(row["paired_delta_ci_low_pp"]) <= 0.0:
+            raise SystemExit(f"CyberSecEval CI lower bound is not positive at budget {row['budget']}")
 
     cyber_seed_rows = _read_csv(CYBER_SEED_ROWS)
     cyber_seeds = {row["seed"] for row in cyber_seed_rows}
     if cyber_seeds != {"7", "19", "31", "43", "59"}:
         raise SystemExit(f"expected five CyberSecEval seeds, found {sorted(cyber_seeds)}")
     cyber_settings = {(row["budget"], row["strategy"]) for row in cyber_seed_rows}
-    required_cyber_settings = {
-        ("4", "classical_boundary_witness_comment"),
-        ("4", "qscout_qbw_comment"),
-        ("8", "classical_boundary_witness_comment"),
-        ("8", "qscout_qbw_comment"),
+    expected_cyber_strategies = {
+        "fair_random_comment",
+        "classical_active_comment",
+        "insec_fixed_pool_comment",
+        "aot_ensemble_fixed_pool_comment",
+        "classical_boundary_witness_comment",
+        "qscout_qbw_comment",
     }
-    if cyber_settings != required_cyber_settings:
-        raise SystemExit(f"unexpected CyberSecEval setting coverage: {sorted(cyber_settings)}")
+    for budget in {"4", "8"}:
+        strategies = {strategy for row_budget, strategy in cyber_settings if row_budget == budget}
+        if strategies != expected_cyber_strategies:
+            raise SystemExit(f"unexpected CyberSecEval strategies at B={budget}: {sorted(strategies)}")
 
     print("CCF-A artifact verification passed.")
     print(

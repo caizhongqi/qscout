@@ -56,16 +56,22 @@ The combined main table is:
 paper_artifacts/ccfa_20260707/main_strongest_baseline_comparison.csv
 ```
 
-The CyberSecEval low-budget add-on table is:
+The CyberSecEval strong-baseline add-on table is:
 
 ```text
-paper_artifacts/ccfa_20260708/cyberseceval_lowbudget_protocol_tables.md
+paper_artifacts/ccfa_20260708/cyberseceval_strong_protocol_tables.md
 ```
 
 It covers a deterministic 120-task stratified CyberSecEval autocomplete subset
 with 8 languages and 50 CWE families.  On Qwen2.5-Coder-0.5B-Instruct,
-QScout-QBW improves Unsafe-and-Functional@4 from 7.17% to 13.00% over Classical
-Boundary Witness, with paired 95% CI `[+5.10, +6.56]` percentage points.
+QScout-QBW is compared against Random Search, Classical Active, INSEC-style
+fixed-pool search, AOT-style ensemble search, and Classical Boundary Witness
+under the same fair-pool protocol.  The strongest non-quantum baseline is
+Classical Active at both low-query budgets: QScout improves
+Unsafe-and-Functional@4 from 11.50% to 15.50% with paired 95% CI
+`[+2.59, +5.41]` percentage points, and improves Unsafe-and-Functional@8 from
+15.50% to 17.67% with paired 95% CI `[+0.74, +3.59]` percentage points.  The
+CyberSecEval AULC gain over the strongest baseline is +22.84%.
 
 Regenerate the compact final tables from local raw outputs:
 
@@ -92,7 +98,7 @@ Run the fast batched second-victim LLMSecEval comparison:
   --output-dir outputs/ccfa_protocol_llmseceval_qwen15_2method_5seed_batched_20260707
 ```
 
-Run the CyberSecEval low-budget add-on:
+Run the CyberSecEval strong-baseline add-on:
 
 ```powershell
 & "D:\ProgramData\py2\python.exe" scripts\build_cyberseceval_subset.py `
@@ -104,13 +110,28 @@ Run the CyberSecEval low-budget add-on:
   --model Qwen/Qwen2.5-Coder-0.5B-Instruct `
   --dataset cyberseceval `
   --dataset-path data_public\cyberseceval_autocomplete_subset_120.json `
-  --strategies classical_boundary_witness_comment,qscout_qbw_comment `
+  --strategies fair_random_comment,classical_active_comment,insec_fixed_pool_comment,aot_ensemble_fixed_pool_comment,classical_boundary_witness_comment,qscout_qbw_comment `
   --budgets 4,8 `
   --seeds 7,19,31,43,59 `
   --prompt-mode raw `
   --max-new-tokens 80 `
   --batch-size 16 `
-  --output-dir outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_20260708
+  --output-dir outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_20260708
+```
+
+Generate the CyberSecEval strong-baseline tables and diagnostics:
+
+```powershell
+& "D:\ProgramData\py2\python.exe" generate_ccfa_protocol_tables.py `
+  --roots outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_20260708 `
+  --output-dir outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_tables_20260708 `
+  --main-method qscout_qbw_comment
+
+& "D:\ProgramData\py2\python.exe" generate_cyberseceval_diagnostics.py `
+  --root outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_20260708 `
+  --tables outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_tables_20260708 `
+  --output-dir outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_diagnostics_20260708 `
+  --main-method qscout_qbw_comment
 ```
 
 Important claim boundary: the strict ablation shows that naked quantum

@@ -1,5 +1,13 @@
 dataset,model,budget,strategy,display_strategy,seeds,mean_unsafe_and_functional_at_q,ci95_unsafe_and_functional_at_q,mean_q_at_success,mean_queries,mean_queries_per_task,complete_seed_count,min_completed_tasks,max_completed_tasks
-cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.07166666666666667,0.004000833246545856,1.8055555555555558,461.2,3.8433333333333337,5,120,120
-cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.13,0.008328398538868211,2.132871148459384,451.0,3.7583333333333337,5,120,120
-cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.14333333333333334,0.006111373731730769,4.031045751633987,891.8,7.431666666666667,5,120,120
-cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.15,0.0,2.588888888888889,862.6,7.188333333333333,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.10666666666666666,0.0032666666666666655,2.3423076923076924,458.8,3.8233333333333333,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,classical_active_comment,Classical Active,"7,19,31,43,59",0.11499999999999999,0.009523888094913988,2.0470329670329668,453.2,3.7766666666666664,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.08833333333333333,0.004000833246545856,2.2218181818181817,461.2,3.8433333333333337,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,fair_random_comment,Random Search,"7,19,31,43,59",0.06833333333333333,0.01665679707773643,1.9392857142857143,463.4,3.861666666666667,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.075,0.0,2.088888888888889,462.8,3.856666666666667,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.15499999999999997,0.008328398538868211,2.0807980736154112,444.4,3.703333333333333,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.13666666666666666,0.004000833246545856,3.179411764705882,881.0,7.341666666666667,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,classical_active_comment,Classical Active,"7,19,31,43,59",0.15499999999999997,0.015146910209309647,3.2324554032139177,871.8,7.265000000000001,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.15,0.0,3.844444444444444,885.2,7.376666666666667,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,fair_random_comment,Random Search,"7,19,31,43,59",0.12833333333333333,0.008328398538868211,3.744873949579832,894.4,7.453333333333333,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.125,0.0,4.213333333333333,903.2,7.526666666666666,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.17666666666666667,0.0032666666666666655,2.5272727272727273,844.0,7.033333333333333,5,120,120

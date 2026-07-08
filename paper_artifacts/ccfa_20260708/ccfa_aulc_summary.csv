@@ -1,3 +1,7 @@
 dataset,model,strategy,display_strategy,budgets,aulc,min_budget,max_budget
-cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,classical_boundary_witness_comment,Classical Boundary Witness,"4,8",0.10750000000000001,4,8
-cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,qscout_qbw_comment,QScout-QBW,"4,8",0.14,4,8
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"4,8",0.12166666666666666,4,8
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,classical_active_comment,Classical Active,"4,8",0.13499999999999998,4,8
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,classical_boundary_witness_comment,Classical Boundary Witness,"4,8",0.11916666666666667,4,8
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,fair_random_comment,Random Search,"4,8",0.09833333333333333,4,8
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"4,8",0.1,4,8
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,qscout_qbw_comment,QScout-QBW,"4,8",0.16583333333333333,4,8
