@@ -9,6 +9,15 @@ The repository also contains older image-classification extraction experiments;
 those are kept as legacy pilots and should not be treated as the current main
 claim.
 
+The current manuscript direction is:
+
+```text
+QScout_QBW_LLM_Security_Main_Manuscript_20260708.md
+```
+
+Older label-only model-extraction drafts should be treated as preliminary
+motivation or appendix material, not as the main CCF-A submission narrative.
+
 ## Setup
 
 ```powershell
