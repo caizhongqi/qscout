@@ -22,6 +22,13 @@ third_party/
 !paper_artifacts/**
 !paper_artifacts/**/*.csv
 !paper_artifacts/**/*.md
+!results/
+!results/llm_security/
+!results/llm_security/**
+!results/llm_security/**/*.csv
+!results/llm_security/**/*.jsonl
+!results/llm_security/**/*.json
+!results/llm_security/**/*.md
 
 # Credentials and machine-local configuration
 .env

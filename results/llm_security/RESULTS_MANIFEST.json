@@ -1,0 +1,21 @@
+{
+  "summary_rows": 87,
+  "seed_rows": 435,
+  "budget_rows": 87,
+  "strongest_baseline_rows": 14,
+  "trace_jsonl_files": {
+    "cyberseceval.jsonl": 7200,
+    "llmseceval.jsonl": 29250,
+    "securityeval.jsonl": 21780
+  },
+  "oracle_files": [
+    "oracle_audit/ORACLE_AUDIT.md",
+    "oracle_audit/oracle_audit_manifest.json",
+    "oracle_audit/oracle_boundary_by_cwe.csv",
+    "oracle_audit/oracle_boundary_by_dataset.csv",
+    "oracle_audit/oracle_boundary_by_language.csv",
+    "oracle_audit/oracle_boundary_queue.csv",
+    "oracle_audit/oracle_boundary_summary.csv"
+  ],
+  "note": "Mirrors committed CCF-A artifacts; generated-code payloads are not included."
+}

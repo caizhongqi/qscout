@@ -15,6 +15,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scripts.verify_oracle_audit import verify_oracle_audit
+from scripts.verify_llm_security_results import verify_llm_security_results
 from scripts.verify_trace_artifact import verify_trace_artifact
 
 
@@ -150,13 +151,15 @@ def main() -> None:
 
     trace_report = verify_trace_artifact()
     oracle_report = verify_oracle_audit()
+    results_report = verify_llm_security_results()
     print("CCF-A artifact verification passed.")
     print(
         f"main_rows={len(main_rows)} seed_rows={len(seed_rows)} "
         f"mechanism_files={len(MECHANISM_FILES)} cyber_rows={len(cyber_rows)} "
         f"trace_main_rows={trace_report['main']['task_outcome_rows']} "
         f"trace_cyber_rows={trace_report['cyberseceval']['task_outcome_rows']} "
-        f"oracle_rows={oracle_report['task_outcome_rows']}"
+        f"oracle_rows={oracle_report['task_outcome_rows']} "
+        f"results_summary_rows={results_report['summary_rows']}"
     )
 
 

@@ -39,6 +39,11 @@ It also checks the oracle boundary audit in
 task outcomes and separates effective unsafe/functioning successes from
 vulnerable-but-nonfunctional and functional-but-not-vulnerable boundary cases.
 
+The reviewer-facing results mirror is generated under `results/llm_security/`
+by `scripts/export_llm_security_results.py`.  It provides `summary.csv`,
+`strongest_baseline_comparison.csv`, `traces/*.jsonl`, and a copied oracle audit
+without changing the verified source artifacts.
+
 ## Current CCF-A Evidence Package
 
 The current table-level evidence is committed under:
@@ -91,6 +96,31 @@ paper_artifacts/ccfa_oracle_audit_20260708/
 
 It does not claim human-level exploit validation; it is a reproducible boundary
 audit for the current pattern/functionality detectors.
+
+The paper-facing results mirror is:
+
+```text
+results/llm_security/
+```
+
+Regenerate it with:
+
+```powershell
+& "D:\ProgramData\py2\python.exe" scripts\export_llm_security_results.py
+& "D:\ProgramData\py2\python.exe" scripts\verify_llm_security_results.py
+```
+
+The baseline registry is documented under:
+
+```text
+baselines/
+```
+
+The paper-facing runner is:
+
+```powershell
+& "D:\ProgramData\py2\python.exe" scripts\run_llm_security_probe.py --help
+```
 
 The CyberSecEval strong-baseline add-on table is:
 

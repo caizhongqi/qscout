@@ -1,0 +1,88 @@
+dataset,model,budget,strategy,display_strategy,seeds,mean_unsafe_and_functional_at_q,ci95_unsafe_and_functional_at_q,mean_q_at_success,mean_queries,mean_queries_per_task,complete_seed_count,min_completed_tasks,max_completed_tasks
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.508,0.009601999791710053,2.1044331884331884,455.6,3.0373333333333337,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.7133333333333333,0.010932357680045244,2.0019279221924258,386.2,2.5746666666666664,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,fair_random_comment,Random Search,"7,19,31,43,59",0.492,0.04119628030673537,1.99048987281011,452.8,3.018666666666667,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.4573333333333333,0.0032006665972367063,2.008610400682012,463.4,3.0893333333333333,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.46266666666666667,0.006662718831094574,2.0980243953061937,468.0,3.12,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9,0.0,1.4814814814814814,260.0,1.7333333333333336,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.604,0.0032006665972367063,2.7326984126984124,722.8,4.818666666666667,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.8320000000000001,0.015679999999999996,2.634547706498796,530.4,3.536,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,fair_random_comment,Random Search,"7,19,31,43,59",0.6786666666666668,0.013951382249320896,3.017802596413676,692.4,4.616,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.588,0.006401333194473413,2.9947823840888548,758.6,5.057333333333334,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.6186666666666667,0.00261333333333335,3.170196353436185,751.8,5.012,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9493333333333334,0.0032006665972367063,1.7218556091795527,306.0,2.04,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.7253333333333333,0.004889098985384613,4.238003892132332,1120.4,7.469333333333333,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.9706666666666667,0.0032006665972367063,3.349995276334435,558.2,3.721333333333333,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,fair_random_comment,Random Search,"7,19,31,43,59",0.836,0.022097738446376004,5.1356118214602215,1037.4,6.9159999999999995,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.6506666666666666,0.0032006665972367063,3.667788764990532,1196.4,7.976000000000001,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.6866666666666666,0.0,4.12621359223301,1177.0,7.846666666666667,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9800000000000001,0.0,2.017687074829932,344.6,2.2973333333333334,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.5533333333333333,0.004132042809286709,1.82159019352672,419.2,2.7946666666666666,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,classical_active_comment,Classical Active,"7,19,31,43,59",0.604,0.006662718831094551,1.7060725633808194,392.2,2.6146666666666665,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.792,0.009601999791710062,1.717082110664545,328.8,2.192,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,fair_random_comment,Random Search,"7,19,31,43,59",0.5893333333333333,0.024305404977311353,1.7856571740355889,404.4,2.696,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.5533333333333333,0.0,1.6819277108433734,407.6,2.7173333333333334,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.504,0.0032006665972367063,1.6929824561403506,425.6,2.8373333333333335,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.8266666666666665,0.0,1.4193548387096775,280.0,1.8666666666666667,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.6426666666666667,0.006662718831094568,2.491276197673861,669.0,4.46,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,classical_active_comment,Classical Active,"7,19,31,43,59",0.8039999999999999,0.01139125590578629,2.83977710610671,577.8,3.8519999999999994,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.8906666666666666,0.005226666666666651,2.178054256703118,422.2,2.8146666666666667,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,fair_random_comment,Random Search,"7,19,31,43,59",0.712,0.04438821865715672,2.4653088032042505,608.8,4.058666666666666,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.6439999999999999,0.005226666666666656,2.3495822029300055,654.2,4.361333333333333,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.6546666666666667,0.004889098985384647,2.7287626953311785,682.4,4.549333333333333,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9146666666666666,0.00261333333333335,1.804612292393949,350.0,2.3333333333333335,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.7413333333333333,0.007619110475931208,3.653535606345341,1027.2,6.848000000000001,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,classical_active_comment,Classical Active,"7,19,31,43,59",0.9146666666666666,0.006401333194473373,3.7720009822970306,722.4,4.816,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.9279999999999999,0.007619110475931163,2.67933033089849,546.0,3.6399999999999997,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,fair_random_comment,Random Search,"7,19,31,43,59",0.8373333333333333,0.01782055741739486,4.0980305870453595,905.4,6.036,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.6933333333333334,0.0,2.9942307692307693,1047.4,6.982666666666667,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.7093333333333334,0.0032006665972367063,3.4151472403456182,1061.0,7.073333333333333,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9333333333333333,0.0,1.9942857142857142,439.2,2.928,5,150,150
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.6595041322314049,0.0060608665108073554,1.313217299578059,269.6,2.2280991735537192,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.7239669421487603,0.003967768508971084,1.543312434691745,268.8,2.221487603305785,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,fair_random_comment,Random Search,"7,19,31,43,59",0.6859504132231405,0.03319673305996828,1.5275661680092059,279.0,2.3057851239669422,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.6528925619834711,0.0,1.3721518987341772,276.4,2.284297520661157,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.631404958677686,0.003967768508971084,1.2826042378673956,276.4,2.284297520661157,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.912396694214876,0.003967768508971139,2.0054545454545454,263.8,2.1801652892561982,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.7305785123966941,0.003967768508971084,1.7711950970377934,417.4,3.449586776859504,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.8330578512396695,0.011903305526913297,2.2727740601190973,390.8,3.229752066115702,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,fair_random_comment,Random Search,"7,19,31,43,59",0.771900826446281,0.024884373001359466,2.059327955146224,413.6,3.418181818181818,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.6991735537190082,0.003967768508971084,1.7255742296918768,437.2,3.613223140495868,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.7239669421487603,0.003967768508971084,1.9313740856844306,436.4,3.6066115702479338,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9801652892561984,0.003967768508971139,2.332217632815838,295.8,2.4446280991735536,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.8446280991735537,0.006060866510807402,3.2303864081439557,631.0,5.214876033057851,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.971900826446281,0.01212173302161475,3.334954985338617,446.8,3.6925619834710743,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,fair_random_comment,Random Search,"7,19,31,43,59",0.9041322314049587,0.016677219071350825,3.4440328396969813,563.0,4.652892561983471,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.7752066115702478,0.003239669421487592,2.833584991992679,701.0,5.793388429752066,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.8016528925619835,0.0,2.868041237113402,662.2,5.472727272727273,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",1.0,0.0,2.6280991735537187,318.0,2.6280991735537187,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.7074380165289256,0.003967768508971084,1.621450068399453,280.4,2.3173553719008266,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.7322314049586777,0.00825956879887754,1.6364804965579858,274.6,2.2694214876033056,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,fair_random_comment,Random Search,"7,19,31,43,59",0.6809917355371902,0.01889035655189554,1.5109532743679084,279.0,2.3057851239669422,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.6975206611570248,0.003967768508971084,1.4737815126050422,270.8,2.2380165289256198,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.6380165289256199,0.003239669421487592,1.4118215118215118,284.2,2.3487603305785125,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9008264462809917,0.007244121051073675,2.0236184474716583,268.6,2.2198347107438012,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.8165289256198347,0.0032396694214876357,2.2185322613894045,396.8,3.279338842975206,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.8644628099173554,0.012121733021614749,2.393056534660308,381.6,3.1537190082644626,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,fair_random_comment,Random Search,"7,19,31,43,59",0.7950413223140496,0.018750942421048643,2.1598601914229176,406.2,3.3570247933884296,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.7933884297520661,0.0,2.0666666666666664,398.4,3.2925619834710744,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.7884297520661157,0.003967768508971084,2.3814254385964913,432.0,3.5702479338842976,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9917355371900827,0.0,2.3983333333333334,295.8,2.4446280991735536,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.8760330578512396,0.007244121051073723,2.957508291978403,553.6,4.575206611570247,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.9801652892561984,0.003967768508971139,3.0356217063096427,398.4,3.2925619834710744,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,fair_random_comment,Random Search,"7,19,31,43,59",0.9421487603305785,0.017744400210084738,3.3165225760325576,490.2,4.051239669421488,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.8297520661157025,0.006479338842975184,2.5191427142714273,582.6,4.8148760330578515,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.8512396694214877,0.0,3.0233009708737866,599.4,4.953719008264462,5,121,121
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",1.0,0.0,2.512396694214876,304.0,2.512396694214876,5,121,121
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.10666666666666666,0.0032666666666666655,2.3423076923076924,458.8,3.8233333333333333,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,classical_active_comment,Classical Active,"7,19,31,43,59",0.11499999999999999,0.009523888094913988,2.0470329670329668,453.2,3.7766666666666664,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.08833333333333333,0.004000833246545856,2.2218181818181817,461.2,3.8433333333333337,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,fair_random_comment,Random Search,"7,19,31,43,59",0.06833333333333333,0.01665679707773643,1.9392857142857143,463.4,3.861666666666667,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.075,0.0,2.088888888888889,462.8,3.856666666666667,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.15499999999999997,0.008328398538868211,2.0807980736154112,444.4,3.703333333333333,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.13666666666666666,0.004000833246545856,3.179411764705882,881.0,7.341666666666667,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,classical_active_comment,Classical Active,"7,19,31,43,59",0.15499999999999997,0.015146910209309647,3.2324554032139177,871.8,7.265000000000001,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.15,0.0,3.844444444444444,885.2,7.376666666666667,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,fair_random_comment,Random Search,"7,19,31,43,59",0.12833333333333333,0.008328398538868211,3.744873949579832,894.4,7.453333333333333,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.125,0.0,4.213333333333333,903.2,7.526666666666666,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.17666666666666667,0.0032666666666666655,2.5272727272727273,844.0,7.033333333333333,5,120,120
