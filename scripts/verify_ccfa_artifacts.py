@@ -63,9 +63,26 @@ def main() -> None:
         raise SystemExit(f"unexpected setting coverage: {sorted(settings)}")
 
     seed_rows = _read_csv(SEED_ROWS)
+    if len(seed_rows) < 375:
+        raise SystemExit(f"expected at least 375 main seed rows after full-strong baseline expansion, found {len(seed_rows)}")
     seeds = {row["seed"] for row in seed_rows}
     if seeds != {"7", "19", "31", "43", "59"}:
         raise SystemExit(f"expected five seeds, found {sorted(seeds)}")
+    _require_strategy_coverage(
+        seed_rows,
+        dataset="llmseceval",
+        model="Qwen/Qwen2.5-Coder-1.5B-Instruct",
+        budgets={"4", "8", "16"},
+        strategies={
+            "fair_random_comment",
+            "fair_risk_prior_comment",
+            "classical_active_comment",
+            "insec_fixed_pool_comment",
+            "aot_ensemble_fixed_pool_comment",
+            "classical_boundary_witness_comment",
+            "qscout_qbw_comment",
+        },
+    )
 
     for path in MECHANISM_FILES:
         rows = _read_csv(path)
@@ -143,6 +160,26 @@ def _require_files(paths: list[Path]) -> None:
 def _read_csv(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
+
+
+def _require_strategy_coverage(
+    rows: list[dict[str, str]],
+    *,
+    dataset: str,
+    model: str,
+    budgets: set[str],
+    strategies: set[str],
+) -> None:
+    for budget in budgets:
+        observed = {
+            row["strategy"]
+            for row in rows
+            if row["dataset"] == dataset and row["model"] == model and row["budget"] == budget
+        }
+        if observed != strategies:
+            raise SystemExit(
+                f"unexpected strategy coverage for {dataset}/{model}/B={budget}: {sorted(observed)}"
+            )
 
 
 if __name__ == "__main__":

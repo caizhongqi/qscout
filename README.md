@@ -50,6 +50,12 @@ It contains:
 - strongest-baseline comparison, AULC summaries, mechanism correlation, and
   strict QBW ablation tables.
 
+The main seed-level artifact now contains 375 rows.  The second victim
+LLMSecEval setting (`Qwen2.5-Coder-1.5B-Instruct`) is no longer a two-method
+comparison: it includes Random Search, Risk Prior, Classical Active, INSEC-style
+fixed-pool search, AOT-style ensemble search, Classical Boundary Witness, and
+QScout-QBW at B=4/8/16.
+
 The combined main table is:
 
 ```text

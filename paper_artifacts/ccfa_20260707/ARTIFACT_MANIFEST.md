@@ -1,6 +1,10 @@
 # QScout 2.0 CCF-A Artifact Manifest
 
-This folder contains the table-level evidence used by the CCF-A strengthening run on 2026-07-07.  Large completion traces and local model caches remain under `outputs/` and are not committed by default; the CSV files here are the compact reproducibility layer for the manuscript tables.
+This folder contains the table-level evidence used by the CCF-A strengthening
+run on 2026-07-07 and the full-strong baseline refresh on 2026-07-08.  Large
+completion traces and local model caches remain under `outputs/` and are not
+committed by default; the CSV files here are the compact reproducibility layer
+for the manuscript tables.
 
 ## Main Results
 
@@ -11,6 +15,11 @@ This folder contains the table-level evidence used by the CCF-A strengthening ru
 | `main_budget_summary.csv` | Per-method budget summaries with confidence intervals. |
 | `main_aulc_summary.csv` | Area-under-low-budget-curve summaries. |
 | `main_seed_rows.csv` | Per-seed rows used for paired comparisons. |
+
+`main_seed_rows.csv` now contains 375 seed-level rows.  LLMSecEval with
+`Qwen/Qwen2.5-Coder-1.5B-Instruct` includes seven strategies at B=4/8/16:
+Random Search, Risk Prior, Classical Active, INSEC-style Fixed-Pool Search,
+AOT-style Ensemble, Classical Boundary Witness, and QScout-QBW.
 
 ## Mechanism Evidence
 

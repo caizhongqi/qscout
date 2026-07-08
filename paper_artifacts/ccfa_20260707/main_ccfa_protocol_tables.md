@@ -29,11 +29,26 @@
 | llmseceval | Qwen/Qwen2.5-Coder-0.5B-Instruct | 16 | Risk Prior | 0.6507 | +/- 0.0032 | 3.67 | 7.98 | 7,19,31,43,59 |
 | llmseceval | Qwen/Qwen2.5-Coder-0.5B-Instruct | 16 | INSEC-style Fixed-Pool Search | 0.6867 | +/- 0.0000 | 4.13 | 7.85 | 7,19,31,43,59 |
 | llmseceval | Qwen/Qwen2.5-Coder-0.5B-Instruct | 16 | QScout-QBW | 0.9800 | +/- 0.0000 | 2.02 | 2.30 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 4 | AOT-style Ensemble | 0.5533 | +/- 0.0041 | 1.82 | 2.79 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 4 | Classical Active | 0.6040 | +/- 0.0067 | 1.71 | 2.61 | 7,19,31,43,59 |
 | llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 4 | Classical Boundary Witness | 0.7920 | +/- 0.0096 | 1.72 | 2.19 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 4 | Random Search | 0.5893 | +/- 0.0243 | 1.79 | 2.70 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 4 | Risk Prior | 0.5533 | +/- 0.0000 | 1.68 | 2.72 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 4 | INSEC-style Fixed-Pool Search | 0.5040 | +/- 0.0032 | 1.69 | 2.84 | 7,19,31,43,59 |
 | llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 4 | QScout-QBW | 0.8267 | +/- 0.0000 | 1.42 | 1.87 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 8 | AOT-style Ensemble | 0.6427 | +/- 0.0067 | 2.49 | 4.46 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 8 | Classical Active | 0.8040 | +/- 0.0114 | 2.84 | 3.85 | 7,19,31,43,59 |
 | llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 8 | Classical Boundary Witness | 0.8907 | +/- 0.0052 | 2.18 | 2.81 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 8 | Random Search | 0.7120 | +/- 0.0444 | 2.47 | 4.06 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 8 | Risk Prior | 0.6440 | +/- 0.0052 | 2.35 | 4.36 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 8 | INSEC-style Fixed-Pool Search | 0.6547 | +/- 0.0049 | 2.73 | 4.55 | 7,19,31,43,59 |
 | llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 8 | QScout-QBW | 0.9147 | +/- 0.0026 | 1.80 | 2.33 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 16 | AOT-style Ensemble | 0.7413 | +/- 0.0076 | 3.65 | 6.85 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 16 | Classical Active | 0.9147 | +/- 0.0064 | 3.77 | 4.82 | 7,19,31,43,59 |
 | llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 16 | Classical Boundary Witness | 0.9280 | +/- 0.0076 | 2.68 | 3.64 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 16 | Random Search | 0.8373 | +/- 0.0178 | 4.10 | 6.04 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 16 | Risk Prior | 0.6933 | +/- 0.0000 | 2.99 | 6.98 | 7,19,31,43,59 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 16 | INSEC-style Fixed-Pool Search | 0.7093 | +/- 0.0032 | 3.42 | 7.07 | 7,19,31,43,59 |
 | llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | 16 | QScout-QBW | 0.9333 | +/- 0.0000 | 1.99 | 2.93 | 7,19,31,43,59 |
 | securityeval | Qwen/Qwen2.5-Coder-0.5B-Instruct | 4 | AOT-style Ensemble | 0.6595 | +/- 0.0061 | 1.31 | 2.23 | 7,19,31,43,59 |
 | securityeval | Qwen/Qwen2.5-Coder-0.5B-Instruct | 4 | Classical Boundary Witness | 0.7240 | +/- 0.0040 | 1.54 | 2.22 | 7,19,31,43,59 |
@@ -82,7 +97,12 @@
 | llmseceval | Qwen/Qwen2.5-Coder-0.5B-Instruct | Risk Prior | 4,8,16 | 0.5871 |
 | llmseceval | Qwen/Qwen2.5-Coder-0.5B-Instruct | INSEC-style Fixed-Pool Search | 4,8,16 | 0.6153 |
 | llmseceval | Qwen/Qwen2.5-Coder-0.5B-Instruct | QScout-QBW | 4,8,16 | 0.9513 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | AOT-style Ensemble | 4,8,16 | 0.6607 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | Classical Active | 4,8,16 | 0.8076 |
 | llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | Classical Boundary Witness | 4,8,16 | 0.8867 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | Random Search | 4,8,16 | 0.7333 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | Risk Prior | 4,8,16 | 0.6453 |
+| llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | INSEC-style Fixed-Pool Search | 4,8,16 | 0.6478 |
 | llmseceval | Qwen/Qwen2.5-Coder-1.5B-Instruct | QScout-QBW | 4,8,16 | 0.9062 |
 | securityeval | Qwen/Qwen2.5-Coder-0.5B-Instruct | AOT-style Ensemble | 4,8,16 | 0.7567 |
 | securityeval | Qwen/Qwen2.5-Coder-0.5B-Instruct | Classical Boundary Witness | 4,8,16 | 0.8612 |

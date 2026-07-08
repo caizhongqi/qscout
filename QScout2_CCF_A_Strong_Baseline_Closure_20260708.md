@@ -66,6 +66,32 @@ JavaScript/PHP/Python/C security contexts, while Java/CPP/Rust are closer to
 ties or low-base-rate settings.  This should be written as a boundary of the
 method, not as universal dominance.
 
+## Full-Strong Main Artifact Refresh
+
+After the CyberSecEval closure, the main CCF-A artifact was also refreshed so
+that LLMSecEval on the second victim (`Qwen2.5-Coder-1.5B-Instruct`) is no
+longer a two-method comparison.  The refreshed main artifact contains 375
+seed-level rows and covers seven strategies for this setting:
+
+- Random Search
+- Risk Prior
+- Classical Active
+- INSEC-style Fixed-Pool Search
+- AOT-style Ensemble
+- Classical Boundary Witness
+- QScout-QBW
+
+The strongest non-quantum baseline remains Classical Boundary Witness:
+
+| Budget | Baseline ASR | QScout ASR | Absolute gain | Paired 95% CI | Q@Success reduction |
+|---:|---:|---:|---:|---:|---:|
+| 4 | 0.7920 | 0.8267 | +3.47 pp | [+2.51, +4.43] | +17.34% |
+| 8 | 0.8907 | 0.9147 | +2.40 pp | [+1.73, +3.07] | +17.15% |
+| 16 | 0.9280 | 0.9333 | +0.53 pp | [-0.23, +1.30] | +25.57% |
+
+The B=16 ASR interval crosses zero because the task is already near saturation;
+its value is query-efficiency evidence, not a primary effect-size claim.
+
 ## Claim Boundary
 
 The supported CCF-A-facing claim is:

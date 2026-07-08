@@ -17,11 +17,26 @@ llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,fair_random_comment,Random Search
 llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.6506666666666666,0.0032006665972367063,3.667788764990532,1196.4,7.976000000000001,5,150,150
 llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.6866666666666666,0.0,4.12621359223301,1177.0,7.846666666666667,5,150,150
 llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,16,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9800000000000001,0.0,2.017687074829932,344.6,2.2973333333333334,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.5533333333333333,0.004132042809286709,1.82159019352672,419.2,2.7946666666666666,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,classical_active_comment,Classical Active,"7,19,31,43,59",0.604,0.006662718831094551,1.7060725633808194,392.2,2.6146666666666665,5,150,150
 llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.792,0.009601999791710062,1.717082110664545,328.8,2.192,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,fair_random_comment,Random Search,"7,19,31,43,59",0.5893333333333333,0.024305404977311353,1.7856571740355889,404.4,2.696,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.5533333333333333,0.0,1.6819277108433734,407.6,2.7173333333333334,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.504,0.0032006665972367063,1.6929824561403506,425.6,2.8373333333333335,5,150,150
 llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,4,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.8266666666666665,0.0,1.4193548387096775,280.0,1.8666666666666667,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.6426666666666667,0.006662718831094568,2.491276197673861,669.0,4.46,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,classical_active_comment,Classical Active,"7,19,31,43,59",0.8039999999999999,0.01139125590578629,2.83977710610671,577.8,3.8519999999999994,5,150,150
 llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.8906666666666666,0.005226666666666651,2.178054256703118,422.2,2.8146666666666667,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,fair_random_comment,Random Search,"7,19,31,43,59",0.712,0.04438821865715672,2.4653088032042505,608.8,4.058666666666666,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.6439999999999999,0.005226666666666656,2.3495822029300055,654.2,4.361333333333333,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.6546666666666667,0.004889098985384647,2.7287626953311785,682.4,4.549333333333333,5,150,150
 llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,8,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9146666666666666,0.00261333333333335,1.804612292393949,350.0,2.3333333333333335,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.7413333333333333,0.007619110475931208,3.653535606345341,1027.2,6.848000000000001,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,classical_active_comment,Classical Active,"7,19,31,43,59",0.9146666666666666,0.006401333194473373,3.7720009822970306,722.4,4.816,5,150,150
 llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.9279999999999999,0.007619110475931163,2.67933033089849,546.0,3.6399999999999997,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,fair_random_comment,Random Search,"7,19,31,43,59",0.8373333333333333,0.01782055741739486,4.0980305870453595,905.4,6.036,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,fair_risk_prior_comment,Risk Prior,"7,19,31,43,59",0.6933333333333334,0.0,2.9942307692307693,1047.4,6.982666666666667,5,150,150
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"7,19,31,43,59",0.7093333333333334,0.0032006665972367063,3.4151472403456182,1061.0,7.073333333333333,5,150,150
 llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,16,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.9333333333333333,0.0,1.9942857142857142,439.2,2.928,5,150,150
 securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"7,19,31,43,59",0.6595041322314049,0.0060608665108073554,1.313217299578059,269.6,2.2280991735537192,5,121,121
 securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.7239669421487603,0.003967768508971084,1.543312434691745,268.8,2.221487603305785,5,121,121
