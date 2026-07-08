@@ -18,6 +18,10 @@ third_party/
 *.csv
 *.png
 *.pdf
+!paper_artifacts/
+!paper_artifacts/**
+!paper_artifacts/**/*.csv
+!paper_artifacts/**/*.md
 
 # Credentials and machine-local configuration
 .env

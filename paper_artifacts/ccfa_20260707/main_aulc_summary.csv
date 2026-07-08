@@ -1,0 +1,21 @@
+dataset,model,strategy,display_strategy,budgets,aulc,min_budget,max_budget
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"4,8,16",0.6284444444444445,4,16
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,classical_boundary_witness_comment,Classical Boundary Witness,"4,8,16",0.8584444444444443,4,16
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,fair_random_comment,Random Search,"4,8,16",0.7000000000000001,4,16
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,fair_risk_prior_comment,Risk Prior,"4,8,16",0.587111111111111,4,16
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"4,8,16",0.6153333333333334,4,16
+llmseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,qscout_qbw_comment,QScout-QBW,"4,8,16",0.9513333333333334,4,16
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,classical_boundary_witness_comment,Classical Boundary Witness,"4,8,16",0.8866666666666667,4,16
+llmseceval,Qwen/Qwen2.5-Coder-1.5B-Instruct,qscout_qbw_comment,QScout-QBW,"4,8,16",0.9062222222222222,4,16
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"4,8,16",0.7567493112947657,4,16
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,classical_boundary_witness_comment,Classical Boundary Witness,"4,8,16",0.8611570247933885,4,16
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,fair_random_comment,Random Search,"4,8,16",0.8016528925619836,4,16
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,fair_risk_prior_comment,Risk Prior,"4,8,16",0.7168044077134986,4,16
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"4,8,16",0.734435261707989,4,16
+securityeval,Qwen/Qwen2.5-Coder-0.5B-Instruct,qscout_qbw_comment,QScout-QBW,"4,8,16",0.975482093663912,4,16
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,aot_ensemble_fixed_pool_comment,AOT-style Ensemble,"4,8,16",0.8181818181818182,4,16
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,classical_boundary_witness_comment,Classical Boundary Witness,"4,8,16",0.8809917355371901,4,16
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,fair_random_comment,Random Search,"4,8,16",0.8250688705234159,4,16
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,fair_risk_prior_comment,Risk Prior,"4,8,16",0.7895316804407714,4,16
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,insec_fixed_pool_comment,INSEC-style Fixed-Pool Search,"4,8,16",0.784297520661157,4,16
+securityeval,Qwen/Qwen2.5-Coder-1.5B-Instruct,qscout_qbw_comment,QScout-QBW,"4,8,16",0.9793388429752067,4,16
