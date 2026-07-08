@@ -1,0 +1,8 @@
+{
+  "task_outcome_rows_audited": 58230,
+  "summary_rows": 87,
+  "cwe_rows": 137,
+  "language_rows": 11,
+  "boundary_queue_rows": 500,
+  "policy": "trace-level detector boundary audit; no generated-code payload is committed"
+}

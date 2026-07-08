@@ -34,6 +34,11 @@ The artifact verifier now also checks the compact trace ledger in
 rows and 7,200 CyberSecEval task-outcome rows back to the committed seed-level
 tables with zero tolerance drift.
 
+It also checks the oracle boundary audit in
+`paper_artifacts/ccfa_oracle_audit_20260708/`, which audits 58,230 detector
+task outcomes and separates effective unsafe/functioning successes from
+vulnerable-but-nonfunctional and functional-but-not-vulnerable boundary cases.
+
 ## Current CCF-A Evidence Package
 
 The current table-level evidence is committed under:
@@ -77,6 +82,15 @@ It commits detector/task-outcome ledgers and SHA-256 manifests for the local raw
 CSV/cache files.  It does not commit the full generated-code payloads, which are
 about hundreds of megabytes locally, but the committed ledger is sufficient to
 recompute the paper seed rows.
+
+The detector/oracle audit layer is:
+
+```text
+paper_artifacts/ccfa_oracle_audit_20260708/
+```
+
+It does not claim human-level exploit validation; it is a reproducible boundary
+audit for the current pattern/functionality detectors.
 
 The CyberSecEval strong-baseline add-on table is:
 
