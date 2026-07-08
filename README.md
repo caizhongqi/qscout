@@ -40,6 +40,9 @@ paper_artifacts/ccfa_20260707/
 It contains:
 
 - two public security benchmarks: `SecurityEval`, `LLMSecEval`;
+- one additional recognized secure-code benchmark add-on:
+  `CyberSecEval/PurpleLlama` autocomplete, committed under
+  `paper_artifacts/ccfa_20260708/`;
 - two open-source victim LLMs: `Qwen2.5-Coder-0.5B-Instruct`,
   `Qwen2.5-Coder-1.5B-Instruct`;
 - five seeds: `7,19,31,43,59`;
@@ -52,6 +55,17 @@ The combined main table is:
 ```text
 paper_artifacts/ccfa_20260707/main_strongest_baseline_comparison.csv
 ```
+
+The CyberSecEval low-budget add-on table is:
+
+```text
+paper_artifacts/ccfa_20260708/cyberseceval_lowbudget_protocol_tables.md
+```
+
+It covers a deterministic 120-task stratified CyberSecEval autocomplete subset
+with 8 languages and 50 CWE families.  On Qwen2.5-Coder-0.5B-Instruct,
+QScout-QBW improves Unsafe-and-Functional@4 from 7.17% to 13.00% over Classical
+Boundary Witness, with paired 95% CI `[+5.10, +6.56]` percentage points.
 
 Regenerate the compact final tables from local raw outputs:
 
@@ -76,6 +90,27 @@ Run the fast batched second-victim LLMSecEval comparison:
   --max-new-tokens 80 `
   --batch-size 8 `
   --output-dir outputs/ccfa_protocol_llmseceval_qwen15_2method_5seed_batched_20260707
+```
+
+Run the CyberSecEval low-budget add-on:
+
+```powershell
+& "D:\ProgramData\py2\python.exe" scripts\build_cyberseceval_subset.py `
+  --limit 120 `
+  --output data_public\cyberseceval_autocomplete_subset_120.json
+
+& "D:\ProgramData\py2\python.exe" run_llm_topconf_streaming_matrix.py `
+  --target hf `
+  --model Qwen/Qwen2.5-Coder-0.5B-Instruct `
+  --dataset cyberseceval `
+  --dataset-path data_public\cyberseceval_autocomplete_subset_120.json `
+  --strategies classical_boundary_witness_comment,qscout_qbw_comment `
+  --budgets 4,8 `
+  --seeds 7,19,31,43,59 `
+  --prompt-mode raw `
+  --max-new-tokens 80 `
+  --batch-size 16 `
+  --output-dir outputs\ccfa_protocol_cyberseceval_qwen05_120_5seed_20260708
 ```
 
 Important claim boundary: the strict ablation shows that naked quantum

@@ -1,0 +1,3 @@
+dataset,model,strategy,display_strategy,budgets,aulc,min_budget,max_budget
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,classical_boundary_witness_comment,Classical Boundary Witness,"4,8",0.10750000000000001,4,8
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,qscout_qbw_comment,QScout-QBW,"4,8",0.14,4,8

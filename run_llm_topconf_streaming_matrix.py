@@ -44,7 +44,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--target", default="hf", choices=["offline", "hf", "openai", "gemini"])
     parser.add_argument("--model", default="Qwen/Qwen2.5-Coder-0.5B-Instruct")
-    parser.add_argument("--dataset", default="securityeval", choices=["internal", "securityeval", "llmseceval"])
+    parser.add_argument("--dataset", default="securityeval", choices=["internal", "securityeval", "llmseceval", "cyberseceval", "cyberseceval_autocomplete"])
     parser.add_argument("--dataset-path", default="")
     parser.add_argument("--budgets", default="16")
     parser.add_argument("--seeds", default="7,19,31,43,59")

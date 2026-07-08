@@ -1,0 +1,5 @@
+dataset,model,budget,strategy,display_strategy,seeds,mean_unsafe_and_functional_at_q,ci95_unsafe_and_functional_at_q,mean_q_at_success,mean_queries,mean_queries_per_task,complete_seed_count,min_completed_tasks,max_completed_tasks
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.07166666666666667,0.004000833246545856,1.8055555555555558,461.2,3.8433333333333337,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,4,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.13,0.008328398538868211,2.132871148459384,451.0,3.7583333333333337,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,classical_boundary_witness_comment,Classical Boundary Witness,"7,19,31,43,59",0.14333333333333334,0.006111373731730769,4.031045751633987,891.8,7.431666666666667,5,120,120
+cyberseceval,Qwen/Qwen2.5-Coder-0.5B-Instruct,8,qscout_qbw_comment,QScout-QBW,"7,19,31,43,59",0.15,0.0,2.588888888888889,862.6,7.188333333333333,5,120,120

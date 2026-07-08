@@ -25,6 +25,18 @@ class LightweightArtifactTests(unittest.TestCase):
         )
         self.assertIn("CCF-A artifact verification passed.", result.stdout)
 
+    def test_cyberseceval_subset_loader(self) -> None:
+        code = (
+            "from qlea.code_completion_attack.cyberseceval import build_cyberseceval_autocomplete_tasks; "
+            "tasks=build_cyberseceval_autocomplete_tasks('paper_artifacts/ccfa_20260708/cyberseceval_autocomplete_subset_120.json'); "
+            "print(len(tasks), len({t.language for t in tasks}), len({t.cwe for t in tasks}))"
+        )
+        result = subprocess.run([sys.executable, "-c", code], check=True, capture_output=True, text=True)
+        count, languages, cwes = map(int, result.stdout.strip().split())
+        self.assertEqual(count, 120)
+        self.assertGreaterEqual(languages, 8)
+        self.assertGreaterEqual(cwes, 40)
+
 
 if __name__ == "__main__":
     unittest.main()

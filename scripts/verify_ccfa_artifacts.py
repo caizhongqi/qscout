@@ -15,9 +15,13 @@ from pathlib import Path
 
 
 ROOT = Path("paper_artifacts/ccfa_20260707")
+CYBER_ROOT = Path("paper_artifacts/ccfa_20260708")
 MAIN_COMPARISON = ROOT / "main_strongest_baseline_comparison.csv"
 SEED_ROWS = ROOT / "main_seed_rows.csv"
 STRICT_ABLATION = ROOT / "strict_qbw_ablation_budget_summary.csv"
+CYBER_COMPARISON = CYBER_ROOT / "ccfa_strongest_baseline_comparison.csv"
+CYBER_SEED_ROWS = CYBER_ROOT / "ccfa_seed_rows.csv"
+CYBER_SUBSET = CYBER_ROOT / "cyberseceval_autocomplete_subset_120.json"
 MECHANISM_FILES = [
     ROOT / "mechanism_securityeval_qwen05.csv",
     ROOT / "mechanism_llmseceval_qwen05.csv",
@@ -28,6 +32,7 @@ MECHANISM_FILES = [
 
 def main() -> None:
     _require_files([MAIN_COMPARISON, SEED_ROWS, STRICT_ABLATION, *MECHANISM_FILES])
+    _require_files([CYBER_COMPARISON, CYBER_SEED_ROWS, CYBER_SUBSET])
     main_rows = _read_csv(MAIN_COMPARISON)
     if len(main_rows) != 12:
         raise SystemExit(f"expected 12 main comparison rows, found {len(main_rows)}")
@@ -79,8 +84,35 @@ def main() -> None:
         missing = sorted(required_strict - strict_strategies)
         raise SystemExit(f"missing strict ablation strategies: {missing}")
 
+    cyber_rows = _read_csv(CYBER_COMPARISON)
+    cyber_budgets = {row["budget"] for row in cyber_rows}
+    if cyber_budgets != {"4", "8"}:
+        raise SystemExit(f"unexpected CyberSecEval budget coverage: {sorted(cyber_budgets)}")
+    for row in cyber_rows:
+        if row["dataset"] != "cyberseceval":
+            raise SystemExit(f"unexpected CyberSecEval dataset label: {row['dataset']}")
+        if float(row["absolute_gain_pp"]) <= 0.0:
+            raise SystemExit(f"CyberSecEval non-positive gain at budget {row['budget']}")
+
+    cyber_seed_rows = _read_csv(CYBER_SEED_ROWS)
+    cyber_seeds = {row["seed"] for row in cyber_seed_rows}
+    if cyber_seeds != {"7", "19", "31", "43", "59"}:
+        raise SystemExit(f"expected five CyberSecEval seeds, found {sorted(cyber_seeds)}")
+    cyber_settings = {(row["budget"], row["strategy"]) for row in cyber_seed_rows}
+    required_cyber_settings = {
+        ("4", "classical_boundary_witness_comment"),
+        ("4", "qscout_qbw_comment"),
+        ("8", "classical_boundary_witness_comment"),
+        ("8", "qscout_qbw_comment"),
+    }
+    if cyber_settings != required_cyber_settings:
+        raise SystemExit(f"unexpected CyberSecEval setting coverage: {sorted(cyber_settings)}")
+
     print("CCF-A artifact verification passed.")
-    print(f"main_rows={len(main_rows)} seed_rows={len(seed_rows)} mechanism_files={len(MECHANISM_FILES)}")
+    print(
+        f"main_rows={len(main_rows)} seed_rows={len(seed_rows)} "
+        f"mechanism_files={len(MECHANISM_FILES)} cyber_rows={len(cyber_rows)}"
+    )
 
 
 def _require_files(paths: list[Path]) -> None:
