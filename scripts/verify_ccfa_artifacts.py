@@ -1,8 +1,7 @@
 """Verify the committed CCF-A evidence tables.
 
-This script is intentionally lightweight: it uses only the Python standard
-library so reviewers can check table integrity before installing the optional
-LLM/QPU stacks.
+This script uses only the Python standard library so reviewers can check table
+and compact trace integrity before installing the optional LLM/QPU stacks.
 
 Run:
     python scripts/verify_ccfa_artifacts.py
@@ -11,7 +10,11 @@ Run:
 from __future__ import annotations
 
 import csv
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scripts.verify_trace_artifact import verify_trace_artifact
 
 
 ROOT = Path("paper_artifacts/ccfa_20260707")
@@ -144,10 +147,13 @@ def main() -> None:
         if strategies != expected_cyber_strategies:
             raise SystemExit(f"unexpected CyberSecEval strategies at B={budget}: {sorted(strategies)}")
 
+    trace_report = verify_trace_artifact()
     print("CCF-A artifact verification passed.")
     print(
         f"main_rows={len(main_rows)} seed_rows={len(seed_rows)} "
-        f"mechanism_files={len(MECHANISM_FILES)} cyber_rows={len(cyber_rows)}"
+        f"mechanism_files={len(MECHANISM_FILES)} cyber_rows={len(cyber_rows)} "
+        f"trace_main_rows={trace_report['main']['task_outcome_rows']} "
+        f"trace_cyber_rows={trace_report['cyberseceval']['task_outcome_rows']}"
     )
 
 

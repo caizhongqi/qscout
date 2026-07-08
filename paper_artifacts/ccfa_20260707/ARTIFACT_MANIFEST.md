@@ -53,3 +53,9 @@ Expected output:
 ```text
 CCF-A artifact verification passed.
 ```
+
+The verifier also reads `paper_artifacts/ccfa_trace_20260708/`, reaggregates the
+committed task-outcome ledgers, and checks exact consistency with
+`main_seed_rows.csv` and the CyberSecEval seed rows.  The compact trace layer
+contains detector/task outcomes and SHA-256 manifests for local raw CSV/cache
+files; it intentionally does not commit the full generated-code payloads.

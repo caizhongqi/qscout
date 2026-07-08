@@ -29,6 +29,11 @@ libraries:
 & "D:\ProgramData\py2\python.exe" -m unittest tests.test_lightweight_artifacts -v
 ```
 
+The artifact verifier now also checks the compact trace ledger in
+`paper_artifacts/ccfa_trace_20260708/`: it reaggregates 51,030 main task-outcome
+rows and 7,200 CyberSecEval task-outcome rows back to the committed seed-level
+tables with zero tolerance drift.
+
 ## Current CCF-A Evidence Package
 
 The current table-level evidence is committed under:
@@ -61,6 +66,17 @@ The combined main table is:
 ```text
 paper_artifacts/ccfa_20260707/main_strongest_baseline_comparison.csv
 ```
+
+The compact trace verification layer is:
+
+```text
+paper_artifacts/ccfa_trace_20260708/
+```
+
+It commits detector/task-outcome ledgers and SHA-256 manifests for the local raw
+CSV/cache files.  It does not commit the full generated-code payloads, which are
+about hundreds of megabytes locally, but the committed ledger is sufficient to
+recompute the paper seed rows.
 
 The CyberSecEval strong-baseline add-on table is:
 

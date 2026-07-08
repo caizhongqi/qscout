@@ -1,0 +1,17 @@
+{
+  "main_roots": [
+    "outputs\\ccfa_protocol_securityeval_qwen05_seed7_full_gatefix_20260706",
+    "outputs\\ccfa_protocol_llmseceval_qwen05_seed7_full_gatefix_20260706",
+    "outputs\\ccfa_protocol_securityeval_qwen15_5seed_full_gatefix_20260707",
+    "outputs\\ccfa_protocol_llmseceval_qwen15_2method_5seed_batched_20260707",
+    "outputs\\ccfa_protocol_llmseceval_qwen15_strong_baselines_20260708"
+  ],
+  "cyber_roots": [
+    "outputs\\ccfa_protocol_cyberseceval_qwen05_120_5seed_strong_v2_20260708"
+  ],
+  "main_task_outcome_rows": 51030,
+  "cyberseceval_task_outcome_rows": 7200,
+  "source_hash_rows": 106,
+  "completion_cache_rows": 10789,
+  "artifact_policy": "compact trace ledger with hashes, not full generated-code payloads"
+}
