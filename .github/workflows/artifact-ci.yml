@@ -20,7 +20,7 @@ jobs:
       - name: Install lightweight dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install "numpy>=1.24,<3"
+          python -m pip install "numpy>=1.24,<3" "pytest>=8,<9"
 
       - name: Syntax check core scripts
         run: |
@@ -30,6 +30,12 @@ jobs:
             qlea/quantum_boundary_witness.py \
             qlea/code_completion_attack/benchmark.py \
             qlea/code_completion_attack/targets.py \
+            qlea/neural_collision/core.py \
+            qlea/neural_collision/structure.py \
+            qlea/neural_collision/quantum.py \
+            qlea/neural_collision/random_graph.py \
+            qlea/neural_collision/torch_adapter.py \
+            qlea/neural_collision/qiskit_grover.py \
             run_llm_topconf_streaming_matrix.py \
             run_qbw_signal_correlation.py \
             generate_ccfa_protocol_tables.py \
@@ -43,3 +49,10 @@ jobs:
 
       - name: Run lightweight unit tests
         run: python -m unittest tests.test_lightweight_artifacts -v
+
+      - name: Run neural collision core tests
+        run: |
+          python -m pytest \
+            tests/test_neural_collision.py \
+            tests/test_neural_collision_random_graph.py \
+            -q
